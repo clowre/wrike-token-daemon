@@ -40,7 +40,7 @@ func main() {
 
 	rootFlags := rootCmd.PersistentFlags()
 	rootFlags.StringVarP(&clientID, "client-id", "I", "", "specify wrike app's client ID")
-	rootFlags.StringVarP(&clientID, "client-secret", "S", "", "specify wrike app's client secret")
+	rootFlags.StringVarP(&clientSecret, "client-secret", "S", "", "specify wrike app's client secret")
 
 	if err := rootCmd.MarkPersistentFlagRequired("client-id"); err != nil {
 		log.Fatalf("cannot make client-id a required flag: %v", err)
