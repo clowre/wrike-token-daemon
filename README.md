@@ -9,9 +9,7 @@ The `wrike-token-daemon` takes an authorization code on startup, and periodicall
 ### Docker
 
 ```shell
-git clone https://github.com/clowre/wrike-http-daemon
-docker build -t wriked .
-docker run -d -p 80:8080 --name wriked wriked -I <your wrike client ID> -S <your wrike client secret> http -P 8080
+docker run -d -p 80:8080 --name wriked clowre/wriked -I <your wrike client ID> -S <your wrike client secret> http -P 8080
 ```
 
 Set the redirect URI of your app to `http://localhost/set-code`, and then log into the app by
