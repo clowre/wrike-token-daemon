@@ -80,7 +80,9 @@ polling:
 	d.currentToken = token
 	d.mut.Unlock()
 
-	timer := time.NewTimer(time.Duration(token.ExpiresIn) * time.Second)
+	// keeping a 10% margin to get the refresh token a bit sooner
+	t := token.ExpiresIn - (token.ExpiresIn / 10)
+	timer := time.NewTimer(time.Duration(t) * time.Second)
 	for {
 		select {
 		case <-timer.C:
