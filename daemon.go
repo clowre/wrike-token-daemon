@@ -52,6 +52,7 @@ func (d *Daemon) Get() (*Token, error) {
 	}
 
 	if time.Now().After(d.currentToken.validBefore) {
+		log.Printf("token expired at %v", d.currentToken.validBefore)
 		return nil, errors.New("token expired")
 	}
 
@@ -82,6 +83,8 @@ polling:
 
 	// keeping a 10% margin to get the refresh token a bit sooner
 	t := token.ExpiresIn - (token.ExpiresIn / 10)
+
+	log.Printf("scheduling token refresh every %d seconds (got %d in response)", t, token.ExpiresIn)
 	timer := time.NewTimer(time.Duration(t) * time.Second)
 	for {
 		select {
@@ -140,6 +143,8 @@ func (d *Daemon) resolveToken() (*Token, error) {
 }
 
 func (d *Daemon) refreshToken() (*Token, error) {
+
+	log.Println("refreshing token...")
 
 	tok, err := d.Get()
 	if err != nil {
