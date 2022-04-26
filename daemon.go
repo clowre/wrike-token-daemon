@@ -85,7 +85,7 @@ polling:
 	t := token.ExpiresIn - (token.ExpiresIn / 10)
 
 	log.Printf("scheduling token refresh every %d seconds (got %d in response)", t, token.ExpiresIn)
-	timer := time.NewTimer(time.Duration(t) * time.Second)
+	timer := time.NewTicker(time.Duration(t) * time.Second)
 	for {
 		select {
 		case <-timer.C:
